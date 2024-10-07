@@ -1,0 +1,109 @@
+<style>
+    body {
+        display: flex;
+        font-family: Arial, sans-serif;
+    }
+    #content {
+        flex: 1;
+        padding: 20px;
+        max-width: 600px;
+        margin-right: 20px;
+    }
+    #sidebar {
+        width: 200px;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+    }
+    #sidebar ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    #sidebar li {
+        padding: 5px;
+        cursor: pointer;
+    }
+    #sidebar li.active {
+        font-weight: bold;
+        color: blue;
+    }
+</style>
+
+<div id="content">
+    <h1>Heading 1</h1>
+    <p>Some content under heading 1.</p>
+    <h2>Subheading 1.1</h2>
+    <p>Some content under subheading 1.1.</p>
+    <h3>Sub-subheading 1.1.1</h3>
+    <p>Some content under sub-subheading 1.1.1.</p>
+    <h2>Subheading 1.2</h2>
+    <p>Some content under subheading 1.2.</p>
+    <h1>Heading 2</h1>
+    <p>Some content under heading 2.</p>
+    <h2>Subheading 2.1</h2>
+    <p>Some content under subheading 2.1.</p>
+    <h3>Sub-subheading 2.1.1</h3>
+    <p>Some content under sub-subheading 2.1.1.</p>
+</div>
+
+<div id="sidebar">
+    <h3>Table of Contents</h3>
+    <ul id="toc"></ul>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const toc = document.getElementById("toc");
+        const headers = document.querySelectorAll("#content h1, #content h2, #content h3, #content h4, #content h5, #content h6");
+
+        headers.forEach(header => {
+            const li = document.createElement("li");
+            li.textContent = header.textContent;
+            li.dataset.target = header.id || header.textContent.replace(/\s+/g, '-').toLowerCase();
+            header.id = li.dataset.target;
+
+            li.addEventListener("click", function() {
+                document.getElementById(header.id).scrollIntoView({ behavior: "smooth" });
+            });
+
+            const level = parseInt(header.tagName.charAt(1), 10);
+            if (level === 1) {
+                toc.appendChild(li);
+            } else {
+                let parentLi = toc.querySelector(`li[data-target="${header.parentElement.id}"]`);
+                if (parentLi) {
+                    let ul = parentLi.querySelector("ul");
+                    if (!ul) {
+                        ul = document.createElement("ul");
+                        parentLi.appendChild(ul);
+                    }
+                    ul.appendChild(li);
+                }
+            }
+        });
+
+        const options = {
+            root: null,
+            threshold: 0.5,
+        };
+
+        const callback = (entries) => {
+            entries.forEach(entry => {
+                const id = entry.target.id;
+                const li = toc.querySelector(`li[data-target="${id}"]`);
+                if (entry.isIntersecting) {
+                    if (li) {
+                        li.classList.add("active");
+                    }
+                } else {
+                    if (li) {
+                        li.classList.remove("active");
+                    }
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(callback, options);
+        headers.forEach(header => observer.observe(header));
+    });
+</script>
