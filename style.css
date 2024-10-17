@@ -1,0 +1,28 @@
+body {
+    display: flex;
+    font-family: Arial, sans-serif;
+}
+#content {
+    flex: 1;
+    padding: 20px;
+    max-width: 600px;
+    margin-right: 20px;
+}
+#sidebar {
+    width: 200px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
+#sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+#sidebar li {
+    padding: 5px;
+    cursor: pointer;
+}
+#sidebar li.active {
+    font-weight: bold;
+    color: blue;
+}
