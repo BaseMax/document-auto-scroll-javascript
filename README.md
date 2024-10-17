@@ -23,10 +23,10 @@ git clone https://github.com/BaseMax/document-auto-scroll-javascript.git
 cd document-auto-scroll-javascript
 ```
 
-Then open the `index.html` file in a browser:
+Then open the `document.html` file in a browser:
 
 ```bash
-open index.html
+open document.html
 ```
 
 Or simply deploy it to any web server or local environment that supports HTML and JavaScript.
