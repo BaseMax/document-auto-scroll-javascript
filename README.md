@@ -5,7 +5,7 @@ This project demonstrates an automatic table of contents (TOC) generator for HTM
 ## Features
 
 - **Dynamic Table of Contents:** The TOC is auto-generated based on the heading tags (`<h1>`, `<h2>`, etc.) in your document.
-- **Smooth Scroll: Clicking on any TOC item smoothly scrolls to the respective section.
+- **Smooth Scroll:** Clicking on any TOC item smoothly scrolls to the respective section.
 - **Active Section Highlighting:** As you scroll through the document, the corresponding TOC item is highlighted.
 - **Intersection Observer API:** Utilizes the modern Intersection Observer API for efficient DOM interaction and performance.
 - **Responsive Design:** Works well on different screen sizes, with the TOC fixed to the right side of the page.
